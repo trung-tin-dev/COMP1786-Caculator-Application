@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="sky_blue">#4FC3F7</color>
+    <color name="sky_blue_dark">#29B6F6</color>
+    <color name="sky_blue_light">#E1F5FE</color>
+
+    <color name="operator_blue">#03A9F4</color>
+
+    <color name="equal_blue">#0288D1</color>
+
+    <color name="error_red">#F44336</color>
+
+    <color name="display_text">#0D47A1</color>
+
+    <color name="white">#FFFFFF</color>
+
+</resources>
