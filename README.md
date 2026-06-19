@@ -50,7 +50,7 @@ Add screenshots of the application here.
 1. Clone the repository.
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/trung-tin-dev/Caculator-Application.git
 ```
 
 2. Open the project in Android Studio.
