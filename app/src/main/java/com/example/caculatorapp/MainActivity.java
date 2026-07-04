@@ -127,9 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         operator = op;
         hasJustCalculated = false;
-
         String formattedFirst = (firstNumber == (int) firstNumber) ? String.valueOf((int) firstNumber) : String.valueOf(firstNumber);
-
         txtDisplay.setText(getString(R.string.expression_format, formattedFirst, operator));
         opDisplay.setText(operator);
     }
