@@ -30,13 +30,10 @@
             android:layout_weight="2"
             android:gravity="bottom|end"
             android:padding="24dp"
-            android:text="0"
+            android:text="@string/lbl_0"
             android:textSize="72sp"/>
 
     </LinearLayout>
-
-
-
 
     <!-- Button Container -->
     <LinearLayout
@@ -55,22 +52,22 @@
             <Button
                 android:id="@+id/btn7"
                 style="@style/NumberButton"
-                android:text="7"/>
+                android:text="@string/lbl_7"/>
 
             <Button
                 android:id="@+id/btn8"
                 style="@style/NumberButton"
-                android:text="8"/>
+                android:text="@string/lbl_8"/>
 
             <Button
                 android:id="@+id/btn9"
                 style="@style/NumberButton"
-                android:text="9"/>
+                android:text="@string/lbl_9"/>
 
             <Button
                 android:id="@+id/btnDivide"
                 style="@style/OperatorButton"
-                android:text="/"/>
+                android:text="@string/op_divide"/>
 
         </LinearLayout>
 
@@ -84,22 +81,22 @@
             <Button
                 android:id="@+id/btn4"
                 style="@style/NumberButton"
-                android:text="4"/>
+                android:text="@string/lbl_4"/>
 
             <Button
                 android:id="@+id/btn5"
                 style="@style/NumberButton"
-                android:text="5"/>
+                android:text="@string/lbl_5"/>
 
             <Button
                 android:id="@+id/btn6"
                 style="@style/NumberButton"
-                android:text="6"/>
+                android:text="@string/lbl_6"/>
 
             <Button
                 android:id="@+id/btnMultiply"
                 style="@style/OperatorButton"
-                android:text="×"/>
+                android:text="@string/op_multiply"/>
 
         </LinearLayout>
 
@@ -113,22 +110,22 @@
             <Button
                 android:id="@+id/btn1"
                 style="@style/NumberButton"
-                android:text="1"/>
+                android:text="@string/lbl_1"/>
 
             <Button
                 android:id="@+id/btn2"
                 style="@style/NumberButton"
-                android:text="2"/>
+                android:text="@string/lbl_2"/>
 
             <Button
                 android:id="@+id/btn3"
                 style="@style/NumberButton"
-                android:text="3"/>
+                android:text="@string/lbl_3"/>
 
             <Button
                 android:id="@+id/btnMinus"
                 style="@style/OperatorButton"
-                android:text="-"/>
+                android:text="@string/op_minus"/>
 
         </LinearLayout>
 
@@ -142,22 +139,22 @@
             <Button
                 android:id="@+id/btnEqual"
                 style="@style/EqualButton"
-                android:text="="/>
+                android:text="@string/btn_equal"/>
 
             <Button
                 android:id="@+id/btn0"
                 style="@style/NumberButton"
-                android:text="0"/>
+                android:text="@string/lbl_0"/>
 
             <Button
                 android:id="@+id/btnClear"
                 style="@style/ClearButton"
-                android:text="C"/>
+                android:text="@string/btn_clear"/>
 
             <Button
                 android:id="@+id/btnPlus"
                 style="@style/OperatorButton"
-                android:text="+"/>
+                android:text="@string/op_plus"/>
 
         </LinearLayout>
 

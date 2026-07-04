@@ -7,18 +7,19 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+//    Declare Variables
     private TextView txtDisplay;
     private TextView opDisplay;
-
     private double firstNumber = 0;
+    private double secondNumber = 0;
     private String operator = "";
-
-    private boolean isNewNumber = true;
+    private boolean hasJustCalculated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+//      Bind Views
         txtDisplay = findViewById(R.id.txtDisplay);
         opDisplay = findViewById(R.id.opDisplay);
 
@@ -71,45 +73,91 @@ public class MainActivity extends AppCompatActivity {
         btnEqual.setOnClickListener(v -> calculate());
         btnClear.setOnClickListener(v -> {
             firstNumber = 0;
+            secondNumber = 0;
             operator = "";
-            txtDisplay.setText("0");
-            isNewNumber = true;
+            txtDisplay.setText(getString(R.string.lbl_0));
+            hasJustCalculated = false;
             opDisplay.setText("");
-            txtDisplay.setTextColor(getResources().getColor(R.color.display_text));
+            txtDisplay.setTextColor(ContextCompat.getColor(this, R.color.display_text));
         });
     }
 
+//    Handle Number Input
     private void appendNumber(String number) {
         String currentText = txtDisplay.getText().toString();
-        if (currentText.equals("Error")) {
+
+        if (currentText.equals(getString(R.string.error_message)) || hasJustCalculated) {
             txtDisplay.setText(number);
             txtDisplay.setTextColor(Color.BLACK);
-            isNewNumber = false;
+            hasJustCalculated = false;
             return;
         }
-        if (isNewNumber) {
+
+        if (currentText.equals(getString(R.string.lbl_0))) {
             txtDisplay.setText(number);
-            isNewNumber = false;
         } else {
             txtDisplay.append(number);
         }
     }
 
+//    Handle Operator input and Chained Math
     private void setOperator(String op) {
-        firstNumber = Double.parseDouble(txtDisplay.getText().toString());
+        String currentText = txtDisplay.getText().toString();
+
+        if (currentText.equals(getString(R.string.error_message))) return;
+
+        if (!hasJustCalculated) {
+            if (operator.isEmpty()) {
+                firstNumber = Double.parseDouble(currentText);
+            } else {
+                int opIndex = currentText.indexOf(operator);
+                if (opIndex != -1) {
+                    try {
+                        String secondPart = currentText.substring(opIndex + operator.length()).trim();
+                        if (!secondPart.isEmpty()) {
+                            secondNumber = Double.parseDouble(secondPart);
+                            firstNumber = MathUtil.execute(firstNumber, secondNumber, operator);
+                        }
+                    } catch (Exception e) {
+                        android.util.Log.e("CalculatorApp", "Error parsing intermediate second part", e);
+                    }
+                }
+            }
+        }
+
         operator = op;
-        opDisplay.setText(op);
-        isNewNumber = true;
+        hasJustCalculated = false;
+
+        String formattedFirst = (firstNumber == (int) firstNumber) ? String.valueOf((int) firstNumber) : String.valueOf(firstNumber);
+
+        txtDisplay.setText(getString(R.string.expression_format, formattedFirst, operator));
+        opDisplay.setText(operator);
     }
 
+//    Core Calculation
     private void calculate() {
         if (operator.isEmpty()) {
             return;
         }
-        double secondNumber =
-                Double.parseDouble(
-                        txtDisplay.getText().toString()
-                );
+
+        String currentText = txtDisplay.getText().toString();
+
+        if (!hasJustCalculated) {
+            int opIndex = currentText.indexOf(operator);
+            if (opIndex != -1) {
+                try {
+                    String secondPart = currentText.substring(opIndex + operator.length()).trim();
+                    if (!secondPart.isEmpty()) {
+                        secondNumber = Double.parseDouble(secondPart);
+                    } else {
+                        secondNumber = firstNumber;
+                    }
+                } catch (Exception e) {
+                    return;
+                }
+            }
+        }
+
         double result = 0;
         switch (operator) {
             case "+":
@@ -123,19 +171,35 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "/":
                 if (secondNumber == 0) {
-                    txtDisplay.setTextColor(getResources().getColor(R.color.error_red));
-                    txtDisplay.setText("Error");
+                    txtDisplay.setTextColor(ContextCompat.getColor(this, R.color.error_red));
+                    txtDisplay.setText(getString(R.string.error_message));
                     return;
                 }
                 result = firstNumber / secondNumber;
                 break;
         }
+
         opDisplay.setText(operator);
+
         if (result == (int) result) {
             txtDisplay.setText(String.valueOf((int) result));
         } else {
             txtDisplay.setText(String.valueOf(result));
         }
-        isNewNumber = true;
+
+        firstNumber = result;
+        hasJustCalculated = true;
+    }
+
+    private static class MathUtil {
+        static double execute(double a, double b, String op) {
+            switch (op) {
+                case "+": return a + b;
+                case "-": return a - b;
+                case "x": return a * b;
+                case "/": return b != 0 ? a / b : 0;
+                default: return 0;
+            }
+        }
     }
 }

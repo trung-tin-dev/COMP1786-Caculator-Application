@@ -1,4 +1,26 @@
 <resources>
-    <string name="app_name">CaculatorApp</string>
+    <string name="app_name">Calculator App</string>
     <dimen name="button_text_size">24sp</dimen>
+
+    <string name="lbl_0">0</string>
+    <string name="lbl_1">1</string>
+    <string name="lbl_2">2</string>
+    <string name="lbl_3">3</string>
+    <string name="lbl_4">4</string>
+    <string name="lbl_5">5</string>
+    <string name="lbl_6">6</string>
+    <string name="lbl_7">7</string>
+    <string name="lbl_8">8</string>
+    <string name="lbl_9">9</string>
+
+    <string name="op_plus">+</string>
+    <string name="op_minus">-</string>
+    <string name="op_multiply">×</string>
+    <string name="op_divide">/</string>
+
+    <string name="btn_equal">=</string>
+    <string name="btn_clear">C</string>
+
+    <string name="error_message">Error</string>
+    <string name="expression_format">%1$s %2$s </string>
 </resources>
